@@ -1,4 +1,4 @@
-\documentclass[aspectratio=169,9pt,handout]{beamer}
+\documentclass[aspectratio=169,9pt]{beamer}
 
 %\transdissolve[duration=0.2] % Only works with Adobe Acrobat
 
@@ -60,12 +60,12 @@
 % Noice!
 \usetheme{usckeck}
 
-\title[Stat. Comp. for Complex Systems]{%
-	Triads, Dyads, and Gene Functions: When Social Network Analysis meets Phylogenetics
+\title[ERGMs in Phylogenetics]{%
+	Triads, Dyads, and Gene Functions\\When Social Network Analysis meets Phylogenetics
 }
 \author[GGVY -- \href{vegayon@usc.edu}{vegayon@usc.edu}]{George G Vega Yon, Ph.D.\\(with Paul D Thomas \and Paul Marjoram \and Huaiyu Mi \and Duncan Thomas \and John Morrison)}
 \institute[USC-Keck]{\normalsize University of Southern California\\Department of Population and Public Health Sciences}
-\date{Networks 2021\\{\footnotesize(virtual)}\\July 8, 2021\vspace{-1cm}}
+\date{Networks 2021\\{\footnotesize(virtual)}\\July 10, 2021\vspace{-1cm}}
 
 % Some definitions
 \def\cursection{\frame{\frametitle{Contents}\tableofcontents[current]}}
@@ -224,6 +224,8 @@
 
 \end{frame}
 
+%\changemode{handout}
+
 \begin{frame}[c,label=geneontology]
 	\frametitle{The Gene Ontology Project}
 	\begin{minipage}[m]{.33\linewidth}
@@ -234,17 +236,19 @@
 			\includegraphics[width=.5\linewidth]{go-logo.png}
 		\end{figure}
 		\begin{itemize}
-			\item<2-> $\sim$ 15,000 phylogenetic trees		
-			\item<3-> $\sim$ 8 million annotations
-			\item<4-> $\sim$ 600 thousand on human genes
-			\item<5-> $\sim$ $<$ 10\% are based on experimental evidence... \uncover<6->{Improving our knowledge on genetics is fundamental for advancing Biomedical Research}
+			\item $\sim$ 15,000 phylogenetic trees		
+			\item $\sim$ 8 million annotations
+			\item $\sim$ 600 thousand on human genes
+			\item $\sim$ $<$ 10\% are based on experimental evidence... \uncover<6->{Improving our knowledge on genetics is fundamental for advancing Biomedical Research}
 		\end{itemize}
 	\end{minipage}
 	\vfill \hfill
-	\Large \uncover<7->{Only on 2020, 2,000+ COVID-19 papers using the GO \href{https://scholar.google.com/scholar?as\_ylo=2020\&q="gene+ontology"+(covid+OR+coronavirus)}{(Google Scholar)}}\normalsize\\
+	\Large \uncover<1->{Only on 2020, 2,000+ COVID-19 papers using the GO \href{https://scholar.google.com/scholar?as\_ylo=2020\&q="gene+ontology"+(covid+OR+coronavirus)}{(Google Scholar)}}\normalsize\\
 	\hfill\hyperlink{go-functions-types}{\beamergotobutton{more}}
 	
 \end{frame}
+
+%\changemode{beamer}
 
 \begin{frame}[label=phylo-legend]
 	\begin{figure}
@@ -465,6 +469,9 @@
 	
 \end{frame}
 
+
+%\changemode{handout}
+
 \begin{frame}
 	\frametitle{Support size: Computational feasibility}
 	Whether the likelihood is tracktable or not depends on how large is the \textbf{``largest event''}
@@ -475,15 +482,17 @@
 			\def\svgwidth{1\linewidth}
 			\mode<handout>{\input{fig/polytomies.pdf_tex}}%
 			\mode<beamer>{%
-				\only<1>{\input{fig/polytomies-1.pdf_tex}}%
-				\only<2>{\input{fig/polytomies-2.pdf_tex}}%
-				\only<3->{\input{fig/polytomies.pdf_tex}}%
+				\only<1->{\input{fig/polytomies-1.pdf_tex}}%
+				\only<1->{\input{fig/polytomies-2.pdf_tex}}%
+				\only<1->{\input{fig/polytomies.pdf_tex}}%
 			}
 		}
 		%		\caption{\textit{Possible reconciliation states}. (a) Shows a fully reconciled tree in which each interior node has two decedents. (b) Illustrates a potentially reconciled tree, yet with a \textit{hard polytomy}. In that case, these five genes could be the result of a multifurcating speciation event. (c) Shows a \textit{soft polytomy}, which illustrates uncertainty about the best hypothesis connecting these genes.}
 	\end{figure}
-	\uncover<4->{\small(in practice, arrays up to 32 cells, i.e., 4.3 billion comb., are feasible.)}
+	\uncover<1->{\small(in practice, arrays up to 32 cells, i.e., 4.3 billion comb., are feasible.)}
 \end{frame}
+
+%\changemode{beamer}
 
 
 %\begin{frame}
@@ -555,37 +564,10 @@
 
 \begin{frame}
 	\begin{figure}
-%		\includegraphics[width=.45\linewidth]{geese-vs-aphylo-one-at-a-time.pdf}
-		\caption{\textit{Performance as Mean Absolute Error (MAE)}. Each set of coordinates shows the value of 1 minus the MAE of \textbf{GEESE}, x-axis, and \textbf{aphylo} (y-axis). The statistics were computed using leave-one-out based on individual parameter estimates. Overall, GEESE performs better than aphylo in most cases.}
+		\includegraphics[width=.45\linewidth]{mcmc-analysis.pdf}
+		\caption{\textit{Receiver Operating Characteristic Curve}. Comparing each set of genes from the 77 trees totaling 709 present/absent annotations in 77 phylogenetic trees. \textbf{GEESE} outperforms \textbf{aphylo} in both MAE and AUC.}
 	\end{figure}
 \end{frame}
-
-%\begin{frame}[label=aphylo-pooled]
-%	
-%	\frametitle{The benefits of pooling data}
-%	
-%	Results from the \textbf{aphylo} model:
-%	
-%	% latex table generated in R 3.6.3 by xtable 1.8-4 package
-%	% Tue Apr 28 11:51:17 2020
-%	\begin{table}[tb]
-%		\centering
-%		\begin{tabular}{m{.14\linewidth}*{3}{m{.14\linewidth}<\centering}}
-%			\toprule & \multicolumn{1}{c}{\textit{Pooled-data}} & \multicolumn{2}{c}{One-at-a-time} \\ \cmidrule(r){2-2}\cmidrule(r){3-4}
-%			& Beta prior & Unif. prior & Beta Prior \\ 
-%			\midrule
-%			\textit{Pooled-data} \\
-%			\hspace{2mm}Unif. prior & \cellcolor{blue!25}[-0.02,-0.01] & \cellcolor{blue!25}[-0.14,-0.10] & \cellcolor{blue!25}[-0.06,-0.03] \\ 
-%			\hspace{2mm}Beta prior &  - & \cellcolor{blue!25}[-0.12,-0.09] & \cellcolor{blue!25}[-0.04,-0.01] \\ 
-%			\textit{One-at-a-time} \\
-%			\hspace{2mm}Unif. prior &  - & - & \cellcolor{red!25}[\hphantom{-}0.06,\hphantom{-}0.09] \\ 
-%			\bottomrule
-%		\end{tabular}
-%		\caption[Differences in Mean Absolute Error]{Differences in Mean Absolute Error [MAE]. Each cell shows the 95\% confidence interval for the difference in MAE resulting from two methods (row method minus column method). Cells are color coded blue when the method on that row has a significantly smaller MAE than the method on that column; Conversely, cells are colored red when the method in that column outperforms the method in that row.  Overall, predictions calculated using the parameter estimates from \textit{pooled-data} predictions outperform \textit{one-at-a-time}.}
-%		\label{tab:vs-accuracy}
-%	\end{table}
-%	
-%\end{frame}
 
 \begin{frame}
 	\frametitle{Tapping into computational scalability}
@@ -598,6 +580,97 @@
 \end{frame}
 
 
+\begin{frame}[label=geese-vs-aphylo2,c]
+	\frametitle{Analyzing 70 experimentally annotated trees (Flock)}
+	\begin{minipage}[m]{.44\linewidth}
+	Same as before, with the exception of:
+	\begin{itemize}
+		\item<2-> 70 experimentally annotated trees
+		\item<3-> Reduced the set to trees with a single function
+		\item<4-> A single pooled-model with \textbf{\large$\approx$34,000 arrays}.
+		\item<5-> Largest polytomy 27, meaning about \textbf{\large 250,000,000 combinations}.
+		\item<6-> Fitted within 15 minutes
+	\end{itemize}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[m]{.55\linewidth}
+		\uncover<7->{
+\begin{tabular}{m{.6\linewidth}rl}
+	\toprule
+	& \multicolumn{2}{c}{MCMC est.} \\\midrule
+	\# of genes changing at dupl & -1.85 & (0.05)\\
+	Gains at dupl. & -1.14 & (4.30)\\
+	Gains at spec. & -2.50 & (0.09)\\
+	Loss at spec. & -3.70 & (0.07)\\
+	Root has the fun. & 5.83 & (3.78)\\\bottomrule
+\end{tabular}}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+\frametitle{Preliminary analysis}
+
+\begin{minipage}[m]{.49\linewidth}
+	\centering
+	\large{\bfseries Transition Probabilities \vphantom{(``Gibbs'')}} \normalsize \\
+	\vspace{.5cm}
+	\includegraphics[width=.95\linewidth]{transition-conditional-prob-transition.png}\\
+	\vspace{.5cm}
+	\uncover<2->{\begin{tabular}{ccc} \toprule %
+		\textbf{Event type} & \textbf{Duplication} & \textbf{Speciation} \\ \cmidrule(r){2-3} 
+		\textbf{Both gain} & 0.02 & \hphantom{$<$}0.01 \\
+		\textbf{Both lose} & 0.02 & $<$0.01 \\ \bottomrule
+	\end{tabular}}
+%	\caption{Transition Probabilities: Siblings negate parent}
+\end{minipage} %
+\hfill %
+\begin{minipage}[m]{.49\linewidth}
+	\centering
+	\uncover<3->{\large{\bfseries Conditional Probabilities (``Gibbs'')} \normalsize \\
+	\vspace{.5cm}
+	\includegraphics[width=.95\linewidth]{transition-conditional-prob-conditional.png}}\\
+	\vspace{.5cm}
+	\uncover<4->{
+	\begin{tabular}{ccc} \toprule %
+	\textbf{Event type} & \textbf{Duplication} & \textbf{Speciation} \\ \cmidrule(r){2-3} 
+	\textbf{Preserve 0} & 0.85 & 0.90 \\
+	\textbf{Preserve 1} & 0.86 & 0.97 \\ \bottomrule
+	\end{tabular}}
+%	\caption{Conditional Probabilities: Preserve parent given sibling does}
+\end{minipage}
+
+\end{frame}
+
+
+\begin{frame}[t]
+	\frametitle{Take home}
+	\uncover<2->{\byside{.33}{Goal}{
+			\centering %
+			\vspace{.625cm}
+			\includegraphics[height=.75cm]{aphylo-data-probability.pdf}
+			\vspace{.625cm}
+			\begin{itemize}
+				\item We are in a race for uncovering \textbf{what genes do}.
+				\item \textbf{Automatic algorithms} provide a way.
+			\end{itemize}
+	}}\hfill
+	\uncover<3->{\byside{.33}{Today}{
+			\includegraphics[height=2cm]{fig/term-longest.png}
+			\begin{itemize}
+				\item Many alternatives... many unrealistic \textbf{assumptions}.
+				\item \textbf{geese} (ERGMs): \textbf{GE}ne function \textbf{E}volution using \textbf{S}uffici\textbf{E}ncy.
+			\end{itemize}
+	}}\hfill
+	\uncover<4->{\byside{.33}{Next steps}{
+			\includegraphics[height=2cm]{aphylo-data-2.png}
+			\begin{itemize}
+				\item Further study its properties (bias, power, accuracy).
+				\item Find applications for this \sout{model} \textbf{modeling framework}.
+			\end{itemize}
+	}}
+\end{frame}
+
+
 % ------------------------------------------------------------------------------
 \begin{frame}[c]
 	\centering
@@ -605,7 +678,7 @@
 	\vspace{-1cm}
 	\textbf{%
 		\color{uscgold}
-		\Large Applications of Statistical Computing in\\Complex Social and Biological Systems Modeling\large %
+		\Large Triads, Dyads, and Gene Functions\\When Social Network Analysis meets Phylogenetics\large %
 	}
 
 	\textbf{
@@ -651,7 +724,7 @@
 % ------------------------------------------------------------------------------
 \changemode{handout}
 
- ------------------------------------------------------------------------------
+
 \begin{frame}[label=go-functions-types]
 	\frametitle{Genes and their Functions}
 	
